@@ -1,0 +1,68 @@
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/material.dart';
+import 'reservation_button_model.dart';
+export 'reservation_button_model.dart';
+
+class ReservationButtonWidget extends StatefulWidget {
+  const ReservationButtonWidget({super.key});
+
+  @override
+  State<ReservationButtonWidget> createState() =>
+      _ReservationButtonWidgetState();
+}
+
+class _ReservationButtonWidgetState extends State<ReservationButtonWidget> {
+  late ReservationButtonModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => ReservationButtonModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentDirectional(0.0, 0.0),
+      child: FFButtonWidget(
+        onPressed: () {
+          print('Button pressed ...');
+        },
+        text: 'Reservation',
+        options: FFButtonOptions(
+          width: 300.0,
+          height: 80.0,
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+          iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+          color: FlutterFlowTheme.of(context).primary,
+          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                fontFamily: 'Inter Tight',
+                color: Colors.white,
+                fontSize: 32.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.bold,
+              ),
+          elevation: 10.0,
+          borderRadius: BorderRadius.circular(14.0),
+        ),
+      ),
+    );
+  }
+}
