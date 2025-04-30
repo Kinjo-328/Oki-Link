@@ -20,9 +20,9 @@ class FFAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _authToken = '';
-  String get authToken => _authToken;
-  set authToken(String value) {
-    _authToken = value;
+  String _authtoken = '';
+  String get authtoken => _authtoken;
+  set authtoken(String value) {
+    _authtoken = value;
   }
 }

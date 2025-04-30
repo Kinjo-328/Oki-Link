@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -5,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'reservation_dialog_model.dart';
 export 'reservation_dialog_model.dart';
 
@@ -42,6 +44,8 @@ class _ReservationDialogWidgetState extends State<ReservationDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -844,7 +848,14 @@ class _ReservationDialogWidgetState extends State<ReservationDialogWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
                           _model.checkoutResponse =
-                              await CreateCheckoutCall.call();
+                              await CreateCheckoutCall.call(
+                            email: currentUserEmail,
+                            price: 5000,
+                            productName: 'プロダクトネーム',
+                            userId: currentUserUid,
+                            packageId: 'a9d98765-4321-4fed-bcba-9876543210de',
+                            authToken: FFAppState().authtoken,
+                          );
 
                           if ((_model.checkoutResponse?.succeeded ?? true)) {
                             await launchURL(CreateCheckoutCall.url(

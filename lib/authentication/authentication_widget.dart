@@ -1551,7 +1551,16 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
                                                             return;
                                                           }
 
-                                                          context.goNamedAuth(
+                                                          await Future.delayed(
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      1000));
+                                                          FFAppState()
+                                                                  .authtoken =
+                                                              currentJwtToken;
+                                                          safeSetState(() {});
+
+                                                          context.pushNamedAuth(
                                                               HomeWidget
                                                                   .routeName,
                                                               context.mounted);

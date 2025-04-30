@@ -5,6 +5,11 @@ export '../supabase.dart';
 export 'row.dart';
 export 'table.dart';
 
-export 'tables/products.dart';
-export 'tables/purchase_history.dart';
+export 'tables/package_components.dart';
+export 'tables/partners.dart';
+export 'tables/workation_packages.dart';
+export 'tables/event_participants.dart';
+export 'tables/purchases.dart';
+export 'tables/events.dart';
 export 'tables/users.dart';
+export 'tables/reviews.dart';

@@ -17,15 +17,28 @@ class UsersRow extends SupabaseDataRow {
   String get id => getField<String>('id')!;
   set id(String value) => setField<String>('id', value);
 
-  String? get email => getField<String>('email');
-  set email(String? value) => setField<String>('email', value);
-
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
 
-  String? get photoUrl => getField<String>('photo_url');
-  set photoUrl(String? value) => setField<String>('photo_url', value);
+  String? get email => getField<String>('email');
+  set email(String? value) => setField<String>('email', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  String? get profileImageUrl => getField<String>('profile_image_url');
+  set profileImageUrl(String? value) =>
+      setField<String>('profile_image_url', value);
+
+  String? get country => getField<String>('country');
+  set country(String? value) => setField<String>('country', value);
+
+  List<String> get language => getListField<String>('language');
+  set language(List<String>? value) => setListField<String>('language', value);
+
+  String? get bio => getField<String>('bio');
+  set bio(String? value) => setField<String>('bio', value);
+
+  bool? get isPremium => getField<bool>('is_premium');
+  set isPremium(bool? value) => setField<bool>('is_premium', value);
+
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

@@ -9,12 +9,21 @@ export 'api_manager.dart' show ApiCallResponse;
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
 class CreateCheckoutCall {
-  static Future<ApiCallResponse> call() async {
+  static Future<ApiCallResponse> call({
+    String? email = '',
+    int? price,
+    String? productName = '',
+    String? userId = '',
+    String? packageId = '',
+    String? authToken = '',
+  }) async {
     final ffApiRequestBody = '''
 {
-  "email": "test@example.com",
-  "price": 2800000,
-  "productName": "Oki-Link 1ヶ月滞在パック"
+  "email": "${escapeStringForJson(email)}",
+  "price": ${price},
+  "productName": "${escapeStringForJson(productName)}",
+  "user_id": "${escapeStringForJson(userId)}",
+  "package_id": "${escapeStringForJson(packageId)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CreateCheckout',
@@ -22,8 +31,7 @@ class CreateCheckoutCall {
           'https://isjpuicrcanvsyzgfqgm.functions.supabase.co/create-checkout',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlzanB1aWNyY2FudnN5emdmcWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUzODAyNDIsImV4cCI6MjA2MDk1NjI0Mn0.mefoENBBLKgW3wiyH34Pn90hIE4LSIXUUZmusmxPqBs',
+        'Authorization': 'Bearer ${authToken}',
       },
       params: {},
       body: ffApiRequestBody,

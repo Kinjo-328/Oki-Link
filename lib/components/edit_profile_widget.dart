@@ -1100,10 +1100,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                       'name': _model
                                                           .projectNameTextController
                                                           .text,
-                                                      'photo_url': _model
-                                                          .uploadedLocalFile
-                                                          .height
-                                                          ?.toString(),
+                                                      'profile_image_url':
+                                                          _model
+                                                              .uploadedLocalFile
+                                                              .height
+                                                              ?.toString(),
                                                     },
                                                     matchingRows: (rows) =>
                                                         rows.eqOrNull(
