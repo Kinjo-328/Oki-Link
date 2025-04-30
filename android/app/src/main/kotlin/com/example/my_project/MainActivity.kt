@@ -1,4 +1,4 @@
-package com.hinaleo.okilink
+package jp.hinaleo.okilink
 
 import io.flutter.embedding.android.FlutterActivity
 
