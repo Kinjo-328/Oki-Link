@@ -1,5 +1,6 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'contents_post_widget.dart' show ContentsPostWidget;
 import 'package:flutter/material.dart';
 
@@ -22,12 +23,14 @@ class ContentsPostModel extends FlutterFlowModel<ContentsPostWidget> {
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
-  // State field(s) for ChoiceChips widget.
-  FormFieldController<List<String>>? choiceChipsValueController;
-  String? get choiceChipsValue =>
-      choiceChipsValueController?.value?.firstOrNull;
-  set choiceChipsValue(String? val) =>
-      choiceChipsValueController?.value = val != null ? [val] : [];
+  bool isDataUploading = false;
+  List<FFUploadedFile> uploadedLocalFiles = [];
+  List<String> uploadedFileUrls = [];
+
+  // State field(s) for Switch widget.
+  bool? switchValue;
+  // Stores action output result for [Backend Call - Insert Row] action in Button widget.
+  WorkationPackagesRow? createWorkationPackage;
 
   @override
   void initState(BuildContext context) {}

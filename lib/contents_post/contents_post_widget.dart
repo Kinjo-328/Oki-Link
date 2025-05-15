@@ -1,9 +1,10 @@
-import '/flutter_flow/flutter_flow_choice_chips.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'contents_post_model.dart';
@@ -41,6 +42,7 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
 
+    _model.switchValue = true;
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -78,74 +80,7 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
               context.pop();
             },
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 30.0, 0.0),
-              child: FlutterFlowChoiceChips(
-                options: [
-                  ChipData('Option 1'),
-                  ChipData('Option 2'),
-                  ChipData('Option 3')
-                ],
-                onChanged: (val) => safeSetState(
-                    () => _model.choiceChipsValue = val?.firstOrNull),
-                selectedChipStyle: ChipStyle(
-                  backgroundColor: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        color: FlutterFlowTheme.of(context).info,
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                  iconColor: FlutterFlowTheme.of(context).info,
-                  iconSize: 16.0,
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                unselectedChipStyle: ChipStyle(
-                  backgroundColor:
-                      FlutterFlowTheme.of(context).secondaryBackground,
-                  textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                  iconColor: FlutterFlowTheme.of(context).secondaryText,
-                  iconSize: 16.0,
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                chipSpacing: 8.0,
-                rowSpacing: 8.0,
-                multiselect: false,
-                alignment: WrapAlignment.start,
-                controller: _model.choiceChipsValueController ??=
-                    FormFieldController<List<String>>(
-                  [],
-                ),
-                wrapped: true,
-              ),
-            ),
-          ],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -203,7 +138,7 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 12.0),
                               child: Text(
-                                'Access your wonderful recipes by loggin in below.',
+                                '登録するワーケーションパックについて、詳細情報を入力',
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context)
                                     .labelLarge
@@ -648,10 +583,61 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                               alignment: AlignmentDirectional(0.0, -1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 36.0, 16.0, 0.0),
+                                    16.0, 50.0, 16.0, 0.0),
                                 child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                                  onPressed: () async {
+                                    final selectedMedia = await selectMedia(
+                                      storageFolderPath:
+                                          'workation_packages_photo',
+                                      mediaSource: MediaSource.photoGallery,
+                                      multiImage: true,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      safeSetState(
+                                          () => _model.isDataUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+
+                                        downloadUrls =
+                                            await uploadSupabaseStorageFiles(
+                                          bucketName: 'admin',
+                                          selectedFiles: selectedMedia,
+                                        );
+                                      } finally {
+                                        _model.isDataUploading = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        safeSetState(() {
+                                          _model.uploadedLocalFiles =
+                                              selectedUploadedFiles;
+                                          _model.uploadedFileUrls =
+                                              downloadUrls;
+                                        });
+                                      } else {
+                                        safeSetState(() {});
+                                        return;
+                                      }
+                                    }
                                   },
                                   text: '画像を追加',
                                   options: FFButtonOptions(
@@ -691,6 +677,92 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 50.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '非公開',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Switch.adaptive(
+                                      value: _model.switchValue!,
+                                      onChanged: (newValue) async {
+                                        safeSetState(() =>
+                                            _model.switchValue = newValue);
+                                      },
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      activeTrackColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      inactiveTrackColor: Color(0x8057636C),
+                                      inactiveThumbColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                    ),
+                                  ),
+                                  Text(
+                                    '公開する',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -700,8 +772,37 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 24.0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        _model.createWorkationPackage =
+                            await WorkationPackagesTable().insert({
+                          'title': _model.textController1.text,
+                          'description': _model.textController2.text,
+                          'price': int.tryParse(_model.textController3.text),
+                          'duration_days':
+                              int.tryParse(_model.textController4.text),
+                          'image_urls': _model.uploadedFileUrls,
+                          'is_active': _model.switchValue,
+                          'created_at':
+                              supaSerialize<DateTime>(getCurrentTimestamp),
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              '登録が完了しました',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+
+                        context.pushNamed(AdminPageWidget.routeName);
+
+                        safeSetState(() {});
                       },
                       text: '投稿する',
                       options: FFButtonOptions(
