@@ -35,4 +35,17 @@ class PackageComponentsRow extends SupabaseDataRow {
 
   int? get includedDays => getField<int>('included_days');
   set includedDays(int? value) => setField<int>('included_days', value);
+
+  int? get displayOrder => getField<int>('display_order');
+  set displayOrder(int? value) => setField<int>('display_order', value);
+
+  String? get stayId => getField<String>('stay_id');
+  set stayId(String? value) => setField<String>('stay_id', value);
+
+  String? get rentalShopId => getField<String>('rental_shop_id');
+  set rentalShopId(String? value) => setField<String>('rental_shop_id', value);
+
+  String? get experienceShopId => getField<String>('experience_shop_id');
+  set experienceShopId(String? value) =>
+      setField<String>('experience_shop_id', value);
 }

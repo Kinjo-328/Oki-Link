@@ -93,7 +93,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: DetailsWidget.routeName,
           path: DetailsWidget.routePath,
-          builder: (context, params) => DetailsWidget(),
+          builder: (context, params) => DetailsWidget(
+            selectedPackageId: params.getParam(
+              'selectedPackageId',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: AuthenticationWidget.routeName,

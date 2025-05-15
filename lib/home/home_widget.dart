@@ -860,11 +860,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: Image.network(
-                                            valueOrDefault<String>(
-                                              gridViewWorkationPackagesRow
-                                                  .imageUrls.firstOrNull,
-                                              'https://ishigaki-pipi.com/pipicms/wp-content/uploads/2021/08/0808_xlarge-1-640x480.jpeg',
-                                            ),
+                                            gridViewWorkationPackagesRow
+                                                .imageUrls.firstOrNull!,
                                             width: double.infinity,
                                             height: double.infinity,
                                             fit: BoxFit.cover,

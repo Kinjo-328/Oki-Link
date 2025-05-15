@@ -7,8 +7,11 @@ export 'table.dart';
 
 export 'tables/package_components.dart';
 export 'tables/partners.dart';
+export 'tables/experience_shops.dart';
+export 'tables/rental_shops.dart';
 export 'tables/workation_packages.dart';
 export 'tables/event_participants.dart';
+export 'tables/stays.dart';
 export 'tables/purchases.dart';
 export 'tables/friendships.dart';
 export 'tables/messages.dart';

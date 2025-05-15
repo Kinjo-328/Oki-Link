@@ -15,7 +15,12 @@ import 'details_model.dart';
 export 'details_model.dart';
 
 class DetailsWidget extends StatefulWidget {
-  const DetailsWidget({super.key});
+  const DetailsWidget({
+    super.key,
+    required this.selectedPackageId,
+  });
+
+  final String? selectedPackageId;
 
   static String routeName = 'Details';
   static String routePath = '/details';
