@@ -111,16 +111,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ContentsPostWidget(),
         ),
         FFRoute(
-          name: WebViewWidget.routeName,
-          path: WebViewWidget.routePath,
-          builder: (context, params) => WebViewWidget(
-            openURL: params.getParam(
-              'openURL',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
           name: PaymentSuccessWidget.routeName,
           path: PaymentSuccessWidget.routePath,
           builder: (context, params) => PaymentSuccessWidget(),
@@ -129,6 +119,34 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PaymentCancelWidget.routeName,
           path: PaymentCancelWidget.routePath,
           builder: (context, params) => PaymentCancelWidget(),
+        ),
+        FFRoute(
+          name: FriendShipsWidget.routeName,
+          path: FriendShipsWidget.routePath,
+          builder: (context, params) => FriendShipsWidget(),
+        ),
+        FFRoute(
+          name: MessagesWidget.routeName,
+          path: MessagesWidget.routePath,
+          builder: (context, params) => MessagesWidget(
+            friendsID: params.getParam(
+              'friendsID',
+              ParamType.String,
+            ),
+            friendsProfileImage: params.getParam(
+              'friendsProfileImage',
+              ParamType.String,
+            ),
+            friendsName: params.getParam(
+              'friendsName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AdminPageWidget.routeName,
+          path: AdminPageWidget.routePath,
+          builder: (context, params) => AdminPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -311,14 +329,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: MediaQuery.sizeOf(context).width * 0.8,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

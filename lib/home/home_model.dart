@@ -1,5 +1,5 @@
-import '/components/my_page_button_widget.dart';
-import '/components/sign_in_button_widget.dart';
+import '/component/my_page_button/my_page_button_widget.dart';
+import '/component/sign_in_button/sign_in_button_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'home_widget.dart' show HomeWidget;

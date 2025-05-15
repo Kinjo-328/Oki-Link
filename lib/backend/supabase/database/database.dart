@@ -10,6 +10,8 @@ export 'tables/partners.dart';
 export 'tables/workation_packages.dart';
 export 'tables/event_participants.dart';
 export 'tables/purchases.dart';
+export 'tables/friendships.dart';
+export 'tables/messages.dart';
 export 'tables/events.dart';
 export 'tables/users.dart';
 export 'tables/reviews.dart';

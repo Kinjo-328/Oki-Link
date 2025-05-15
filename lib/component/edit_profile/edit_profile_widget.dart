@@ -38,7 +38,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
     super.initState();
     _model = createModel(context, () => EditProfileModel());
 
-    _model.projectNameTextController ??= TextEditingController();
     _model.projectNameFocusNode ??= FocusNode();
 
     _model.descriptionTextController ??= TextEditingController();
@@ -292,32 +291,42 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                           ],
                                         ),
                                       ),
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          final selectedMedia =
-                                              await selectMediaWithSourceBottomSheet(
-                                            context: context,
-                                            allowPhoto: true,
-                                          );
-                                          if (selectedMedia != null &&
-                                              selectedMedia.every((m) =>
-                                                  validateFileFormat(
-                                                      m.storagePath,
-                                                      context))) {
-                                            safeSetState(() =>
-                                                _model.isDataUploading = true);
-                                            var selectedUploadedFiles =
-                                                <FFUploadedFile>[];
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              final selectedMedia =
+                                                  await selectMediaWithSourceBottomSheet(
+                                                context: context,
+                                                storageFolderPath:
+                                                    'profile_image',
+                                                allowPhoto: true,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                safeSetState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
 
-                                            try {
-                                              selectedUploadedFiles =
-                                                  selectedMedia
-                                                      .map(
-                                                          (m) => FFUploadedFile(
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
                                                                 name: m
                                                                     .storagePath
                                                                     .split('/')
@@ -332,182 +341,184 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                                 blurHash:
                                                                     m.blurHash,
                                                               ))
-                                                      .toList();
-                                            } finally {
-                                              _model.isDataUploading = false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                selectedMedia.length) {
-                                              safeSetState(() {
-                                                _model.uploadedLocalFile =
-                                                    selectedUploadedFiles.first;
-                                              });
-                                            } else {
-                                              safeSetState(() {});
-                                              return;
-                                            }
-                                          }
-                                        },
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child: Container(
-                                                  width: 120.0,
-                                                  height: 250.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                                          .toList();
+
+                                                  downloadUrls =
+                                                      await uploadSupabaseStorageFiles(
+                                                    bucketName: 'users',
+                                                    selectedFiles:
+                                                        selectedMedia,
+                                                  );
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  safeSetState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                    _model.uploadedFileUrl =
+                                                        downloadUrls.first;
+                                                  });
+                                                } else {
+                                                  safeSetState(() {});
+                                                  return;
+                                                }
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 250.0,
+                                              height: 250.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .alternate,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16.0),
-                                                  ),
-                                                  child: Stack(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                              ),
+                                              child: Stack(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                children: [
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .add_a_photo_outlined,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
+                                                      Icon(
+                                                        Icons
+                                                            .add_a_photo_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .secondaryText,
-                                                            size: 72.0,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              'Add Photo',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .titleLarge
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .interTight(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleLarge
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleLarge
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        4.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              'Upload an image here...',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                        size: 72.0,
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            fadeInDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                            fadeOutDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                            imageUrl: '',
-                                                            width:
-                                                                double.infinity,
-                                                            height:
-                                                                double.infinity,
-                                                            fit: BoxFit.cover,
-                                                          ),
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Add Photo',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleLarge
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .interTight(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    4.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Upload an image here...',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      child: CachedNetworkImage(
+                                                        fadeInDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        fadeOutDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        imageUrl: _model
+                                                            .uploadedFileUrl,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
-                                          controller:
-                                              _model.projectNameTextController,
+                                          controller: _model
+                                                  .projectNameTextController ??=
+                                              TextEditingController(
+                                            text: containerUsersRow?.name,
+                                          ),
                                           focusNode:
                                               _model.projectNameFocusNode,
                                           autofocus: true,
@@ -1094,25 +1105,33 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                   .fromSTEB(0.0, 0.0, 4.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  _model.editProfile =
-                                                      await UsersTable().update(
+                                                  await UsersTable().update(
                                                     data: {
                                                       'name': _model
                                                           .projectNameTextController
                                                           .text,
-                                                      'profile_image_url':
-                                                          _model
-                                                              .uploadedLocalFile
-                                                              .height
-                                                              ?.toString(),
                                                     },
                                                     matchingRows: (rows) =>
                                                         rows.eqOrNull(
                                                       'id',
                                                       currentUserUid,
                                                     ),
-                                                    returnRows: true,
                                                   );
+                                                  if (_model.uploadedFileUrl !=
+                                                          '') {
+                                                    await UsersTable().update(
+                                                      data: {
+                                                        'profile_image_url':
+                                                            _model
+                                                                .uploadedFileUrl,
+                                                      },
+                                                      matchingRows: (rows) =>
+                                                          rows.eqOrNull(
+                                                        'id',
+                                                        currentUserUid,
+                                                      ),
+                                                    );
+                                                  }
                                                   Navigator.pop(context);
 
                                                   safeSetState(() {});

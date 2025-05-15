@@ -1,6 +1,6 @@
-import '/components/my_page_button_widget.dart';
-import '/components/reservation_button_widget.dart';
-import '/components/sign_in_button_widget.dart';
+import '/component/my_page_button/my_page_button_widget.dart';
+import '/component/reservation_button/reservation_button_widget.dart';
+import '/component/sign_in_button/sign_in_button_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'details_widget.dart' show DetailsWidget;
 import 'package:flutter/material.dart';

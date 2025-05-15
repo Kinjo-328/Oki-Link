@@ -2,10 +2,10 @@ import '/backend/api_requests/api_calls.dart';
 import '/component/sign_out_button/sign_out_button_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'my_page_widget.dart' show MyPageWidget;
+import 'admin_page_widget.dart' show AdminPageWidget;
 import 'package:flutter/material.dart';
 
-class MyPageModel extends FlutterFlowModel<MyPageWidget> {
+class AdminPageModel extends FlutterFlowModel<AdminPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for SignOutButton component.

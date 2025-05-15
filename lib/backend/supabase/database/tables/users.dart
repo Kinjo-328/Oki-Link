@@ -41,4 +41,7 @@ class UsersRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  bool? get isAdmin => getField<bool>('is_admin');
+  set isAdmin(bool? value) => setField<bool>('is_admin', value);
 }

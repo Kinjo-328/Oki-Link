@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'web_view_widget.dart' show WebViewWidget;
+import 'back_home_button_widget.dart' show BackHomeButtonWidget;
 import 'package:flutter/material.dart';
 
-class WebViewModel extends FlutterFlowModel<WebViewWidget> {
+class BackHomeButtonModel extends FlutterFlowModel<BackHomeButtonWidget> {
   @override
   void initState(BuildContext context) {}
 

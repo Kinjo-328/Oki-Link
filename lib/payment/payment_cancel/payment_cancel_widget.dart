@@ -1,3 +1,4 @@
+import '/component/back_home_button/back_home_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -50,33 +51,28 @@ class _PaymentCancelWidgetState extends State<PaymentCancelWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          title: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              context.pushNamed(HomeWidget.routeName);
-            },
-            child: Text(
-              'Home',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    font: GoogleFonts.interTight(
-                      fontWeight: FlutterFlowTheme.of(context)
-                          .headlineMedium
-                          .fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                    ),
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    letterSpacing: 0.0,
+          leading: wrapWithModel(
+            model: _model.backHomeButtonModel,
+            updateCallback: () => safeSetState(() {}),
+            child: BackHomeButtonWidget(),
+          ),
+          title: Text(
+            'キャンセル',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  font: GoogleFonts.interTight(
                     fontWeight:
                         FlutterFlowTheme.of(context).headlineMedium.fontWeight,
                     fontStyle:
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
-            ),
+                  color: Colors.white,
+                  fontSize: 22.0,
+                  letterSpacing: 0.0,
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                ),
           ),
           actions: [],
           centerTitle: false,

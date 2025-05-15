@@ -929,9 +929,39 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
                                                                 child:
                                                                     FFButtonWidget(
                                                                   onPressed:
-                                                                      () {
-                                                                    print(
-                                                                        'Button pressed ...');
+                                                                      () async {
+                                                                    GoRouter.of(
+                                                                            context)
+                                                                        .prepareAuthEvent();
+                                                                    final user =
+                                                                        await authManager
+                                                                            .signInWithGoogle(context);
+                                                                    if (user ==
+                                                                        null) {
+                                                                      return;
+                                                                    }
+                                                                    await UsersTable()
+                                                                        .delete(
+                                                                      matchingRows: (rows) => rows
+                                                                          .eqOrNull(
+                                                                            'id',
+                                                                            currentUserUid,
+                                                                          )
+                                                                          .eqOrNull(
+                                                                            'id',
+                                                                            currentUserUid,
+                                                                          )
+                                                                          .eqOrNull(
+                                                                            'email',
+                                                                            currentUserEmail,
+                                                                          ),
+                                                                    );
+
+                                                                    context.pushNamedAuth(
+                                                                        HomeWidget
+                                                                            .routeName,
+                                                                        context
+                                                                            .mounted);
                                                                   },
                                                                   text:
                                                                       'Continue with Google',
@@ -1708,9 +1738,25 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
                                                                       0.0,
                                                                       16.0),
                                                           child: FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
+                                                            onPressed:
+                                                                () async {
+                                                              GoRouter.of(
+                                                                      context)
+                                                                  .prepareAuthEvent();
+                                                              final user =
+                                                                  await authManager
+                                                                      .signInWithGoogle(
+                                                                          context);
+                                                              if (user ==
+                                                                  null) {
+                                                                return;
+                                                              }
+
+                                                              context.goNamedAuth(
+                                                                  HomeWidget
+                                                                      .routeName,
+                                                                  context
+                                                                      .mounted);
                                                             },
                                                             text:
                                                                 'Continue with Google',

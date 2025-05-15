@@ -14,22 +14,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'my_page_model.dart';
-export 'my_page_model.dart';
+import 'admin_page_model.dart';
+export 'admin_page_model.dart';
 
-class MyPageWidget extends StatefulWidget {
-  const MyPageWidget({super.key});
+class AdminPageWidget extends StatefulWidget {
+  const AdminPageWidget({super.key});
 
-  static String routeName = 'MyPage';
-  static String routePath = '/myPage';
+  static String routeName = 'AdminPage';
+  static String routePath = '/adminPage';
 
   @override
-  State<MyPageWidget> createState() => _MyPageWidgetState();
+  State<AdminPageWidget> createState() => _AdminPageWidgetState();
 }
 
-class _MyPageWidgetState extends State<MyPageWidget>
+class _AdminPageWidgetState extends State<AdminPageWidget>
     with TickerProviderStateMixin {
-  late MyPageModel _model;
+  late AdminPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,7 +38,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => MyPageModel());
+    _model = createModel(context, () => AdminPageModel());
 
     animationsMap.addAll({
       'progressBarOnPageLoadAnimation': AnimationInfo(
@@ -112,10 +112,11 @@ class _MyPageWidgetState extends State<MyPageWidget>
             ),
           );
         }
-        List<UsersRow> myPageUsersRowList = snapshot.data!;
+        List<UsersRow> adminPageUsersRowList = snapshot.data!;
 
-        final myPageUsersRow =
-            myPageUsersRowList.isNotEmpty ? myPageUsersRowList.first : null;
+        final adminPageUsersRow = adminPageUsersRowList.isNotEmpty
+            ? adminPageUsersRowList.first
+            : null;
 
         return GestureDetector(
           onTap: () {
@@ -1039,7 +1040,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Overview',
+                                        'Admin Page',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
@@ -1166,7 +1167,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                                         milliseconds: 500),
                                                     imageUrl:
                                                         valueOrDefault<String>(
-                                                      myPageUsersRow
+                                                      adminPageUsersRow
                                                           ?.profileImageUrl,
                                                       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkrhTmiYL06um5JVH9MsMaj91eQiDmMXlb-LdieJxTqKFA7elFCsSVMdU4a6jjv-1Ineo&usqp=CAU',
                                                     ),
@@ -1188,7 +1189,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                                 children: [
                                                   Text(
                                                     valueOrDefault<String>(
-                                                      myPageUsersRow?.name,
+                                                      adminPageUsersRow?.name,
                                                       'Your Name',
                                                     ),
                                                     style: FlutterFlowTheme.of(
@@ -1223,7 +1224,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                                   ),
                                                   Text(
                                                     valueOrDefault<String>(
-                                                      myPageUsersRow?.email,
+                                                      adminPageUsersRow?.email,
                                                       'oki-link@gmail.com',
                                                     ),
                                                     style: FlutterFlowTheme.of(

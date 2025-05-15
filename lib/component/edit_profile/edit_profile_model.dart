@@ -10,6 +10,7 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // State field(s) for projectName widget.
   FocusNode? projectNameFocusNode;
@@ -28,7 +29,9 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   TextEditingController? clonableURLTextController;
   String? Function(BuildContext, String?)? clonableURLTextControllerValidator;
   // Stores action output result for [Backend Call - Update Row(s)] action in Button widget.
-  List<UsersRow>? editProfile;
+  List<UsersRow>? name;
+  // Stores action output result for [Backend Call - Update Row(s)] action in Button widget.
+  List<UsersRow>? profileImageUrl;
 
   @override
   void initState(BuildContext context) {}
