@@ -838,7 +838,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pushNamed(DetailsWidget.routeName);
+                                    context.pushNamed(
+                                      DetailsWidget.routeName,
+                                      queryParameters: {
+                                        'selectedPackageId': serializeParam(
+                                          gridViewWorkationPackagesRow.id,
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   },
                                   child: Container(
                                     width: 100.0,
