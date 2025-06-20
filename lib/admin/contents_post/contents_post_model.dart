@@ -23,9 +23,9 @@ class ContentsPostModel extends FlutterFlowModel<ContentsPostWidget> {
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
-  bool isDataUploading = false;
-  List<FFUploadedFile> uploadedLocalFiles = [];
-  List<String> uploadedFileUrls = [];
+  bool isDataUploading_uploadWorkationPackagesPhoto = false;
+  List<FFUploadedFile> uploadedLocalFiles_uploadWorkationPackagesPhoto = [];
+  List<String> uploadedFileUrls_uploadWorkationPackagesPhoto = [];
 
   // State field(s) for Switch widget.
   bool? switchValue;

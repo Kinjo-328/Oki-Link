@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'grid_view_card_widget.dart' show GridViewCardWidget;
+import 'bottom_app_bar_widget.dart' show BottomAppBarWidget;
 import 'package:flutter/material.dart';
 
-class GridViewCardModel extends FlutterFlowModel<GridViewCardWidget> {
+class BottomAppBarModel extends FlutterFlowModel<BottomAppBarWidget> {
   @override
   void initState(BuildContext context) {}
 

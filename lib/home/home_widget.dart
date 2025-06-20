@@ -1,10 +1,11 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/component/my_page_button/my_page_button_widget.dart';
 import '/component/sign_in_button/sign_in_button_widget.dart';
+import '/components/bottom_app_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/my_page/my_page_button/my_page_button_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -102,10 +103,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.asset(
-                              'assets/images/_2025-04-18_15.12.31.png',
+                              'assets/images/_2025-06-12_15.00.12.png',
                               width: double.infinity,
                               height: double.infinity,
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -681,8 +682,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     text: 'Grid View',
                                     icon: Icon(
                                       Icons.keyboard_double_arrow_down,
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
                                       size: 25.0,
                                     ),
                                     options: FFButtonOptions(
@@ -693,6 +692,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       iconPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
+                                      iconColor: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
@@ -731,8 +732,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   text: '並び替え',
                                   icon: Icon(
                                     Icons.keyboard_double_arrow_down,
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
                                     size: 25.0,
                                   ),
                                   options: FFButtonOptions(
@@ -742,6 +741,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     iconAlignment: IconAlignment.end,
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
+                                    iconColor:
+                                        FlutterFlowTheme.of(context).alternate,
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -1129,9 +1130,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                     ),
                     Container(
+                      width: double.infinity,
                       height: 200.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: Color(0x0C1ABF00),
+                      ),
+                      child: wrapWithModel(
+                        model: _model.bottomAppBarModel,
+                        updateCallback: () => safeSetState(() {}),
+                        child: BottomAppBarWidget(),
                       ),
                     ),
                   ],

@@ -1,13 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
-import '/component/edit_profile/edit_profile_widget.dart';
 import '/component/sign_out_button/sign_out_button_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/my_page/edit_profile/edit_profile_widget.dart';
 import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -381,7 +381,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Icon(
-                                          Icons.work,
+                                          Icons.currency_yen,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           size: 24.0,
@@ -391,7 +391,7 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 0.0, 0.0),
                                           child: Text(
-                                            'Projects',
+                                            'Price',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -898,6 +898,52 @@ class _MyPageWidgetState extends State<MyPageWidget>
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 50.0, 0.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  context
+                                      .pushNamed(EmailChangeWidget.routeName);
+                                },
+                                text: 'メールアドレス変更',
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).accent2,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.interTight(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(0.0, -1.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   var confirmDialogResponse =
@@ -2089,10 +2135,6 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                                     text: 'Add New',
                                                     icon: Icon(
                                                       Icons.add_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .info,
                                                       size: 15.0,
                                                     ),
                                                     options: FFButtonOptions(
@@ -2111,6 +2153,10 @@ class _MyPageWidgetState extends State<MyPageWidget>
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
+                                                      iconColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .info,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)

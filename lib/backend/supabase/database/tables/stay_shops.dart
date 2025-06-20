@@ -1,18 +1,18 @@
 import '../database.dart';
 
-class StaysTable extends SupabaseTable<StaysRow> {
+class StayShopsTable extends SupabaseTable<StayShopsRow> {
   @override
-  String get tableName => 'stays';
+  String get tableName => 'stay_shops';
 
   @override
-  StaysRow createRow(Map<String, dynamic> data) => StaysRow(data);
+  StayShopsRow createRow(Map<String, dynamic> data) => StayShopsRow(data);
 }
 
-class StaysRow extends SupabaseDataRow {
-  StaysRow(Map<String, dynamic> data) : super(data);
+class StayShopsRow extends SupabaseDataRow {
+  StayShopsRow(Map<String, dynamic> data) : super(data);
 
   @override
-  SupabaseTable get table => StaysTable();
+  SupabaseTable get table => StayShopsTable();
 
   String get id => getField<String>('id')!;
   set id(String value) => setField<String>('id', value);
@@ -38,4 +38,7 @@ class StaysRow extends SupabaseDataRow {
 
   int? get price => getField<int>('price');
   set price(int? value) => setField<int>('price', value);
+
+  String? get providerId => getField<String>('provider_id');
+  set providerId(String? value) => setField<String>('provider_id', value);
 }

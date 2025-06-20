@@ -77,13 +77,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomeWidget() : AuthenticationWidget(),
+          appStateNotifier.loggedIn ? MyPageWidget() : HomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomeWidget() : AuthenticationWidget(),
+              appStateNotifier.loggedIn ? MyPageWidget() : HomeWidget(),
         ),
         FFRoute(
           name: HomeWidget.routeName,
@@ -152,6 +152,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: AdminPageWidget.routeName,
           path: AdminPageWidget.routePath,
           builder: (context, params) => AdminPageWidget(),
+        ),
+        FFRoute(
+          name: TwoFactorAuthWidget.routeName,
+          path: TwoFactorAuthWidget.routePath,
+          builder: (context, params) => TwoFactorAuthWidget(),
+        ),
+        FFRoute(
+          name: ForgotPasswordWidget.routeName,
+          path: ForgotPasswordWidget.routePath,
+          builder: (context, params) => ForgotPasswordWidget(),
+        ),
+        FFRoute(
+          name: UpdatePasswordWidget.routeName,
+          path: UpdatePasswordWidget.routePath,
+          builder: (context, params) => UpdatePasswordWidget(),
+        ),
+        FFRoute(
+          name: EmailChangeWidget.routeName,
+          path: EmailChangeWidget.routePath,
+          builder: (context, params) => EmailChangeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -320,7 +340,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/authentication';
+            return '/home';
           }
           return null;
         },

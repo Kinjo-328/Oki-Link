@@ -49,7 +49,7 @@ class _SignOutButtonWidgetState extends State<SignOutButtonWidget> {
           await authManager.signOut();
           GoRouter.of(context).clearRedirectLocation();
 
-          context.goNamedAuth(AuthenticationWidget.routeName, context.mounted);
+          context.goNamedAuth(HomeWidget.routeName, context.mounted);
         },
         text: 'Sign out',
         options: FFButtonOptions(

@@ -37,4 +37,7 @@ class ExperienceShopsRow extends SupabaseDataRow {
 
   int? get price => getField<int>('price');
   set price(int? value) => setField<int>('price', value);
+
+  String? get providerId => getField<String>('provider_id');
+  set providerId(String? value) => setField<String>('provider_id', value);
 }

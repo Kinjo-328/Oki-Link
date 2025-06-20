@@ -596,8 +596,9 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                                         selectedMedia.every((m) =>
                                             validateFileFormat(
                                                 m.storagePath, context))) {
-                                      safeSetState(
-                                          () => _model.isDataUploading = true);
+                                      safeSetState(() => _model
+                                              .isDataUploading_uploadWorkationPackagesPhoto =
+                                          true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
 
@@ -621,16 +622,17 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                                           selectedFiles: selectedMedia,
                                         );
                                       } finally {
-                                        _model.isDataUploading = false;
+                                        _model.isDataUploading_uploadWorkationPackagesPhoto =
+                                            false;
                                       }
                                       if (selectedUploadedFiles.length ==
                                               selectedMedia.length &&
                                           downloadUrls.length ==
                                               selectedMedia.length) {
                                         safeSetState(() {
-                                          _model.uploadedLocalFiles =
+                                          _model.uploadedLocalFiles_uploadWorkationPackagesPhoto =
                                               selectedUploadedFiles;
-                                          _model.uploadedFileUrls =
+                                          _model.uploadedFileUrls_uploadWorkationPackagesPhoto =
                                               downloadUrls;
                                         });
                                       } else {
@@ -780,7 +782,8 @@ class _ContentsPostWidgetState extends State<ContentsPostWidget> {
                           'price': int.tryParse(_model.textController3.text),
                           'duration_days':
                               int.tryParse(_model.textController4.text),
-                          'image_urls': _model.uploadedFileUrls,
+                          'image_urls': _model
+                              .uploadedFileUrls_uploadWorkationPackagesPhoto,
                           'is_active': _model.switchValue,
                           'created_at':
                               supaSerialize<DateTime>(getCurrentTimestamp),

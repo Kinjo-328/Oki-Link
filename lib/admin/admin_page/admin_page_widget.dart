@@ -1,13 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
-import '/component/edit_profile/edit_profile_widget.dart';
 import '/component/sign_out_button/sign_out_button_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/my_page/edit_profile/edit_profile_widget.dart';
 import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -2101,10 +2101,6 @@ class _AdminPageWidgetState extends State<AdminPageWidget>
                                                     text: 'Add New',
                                                     icon: Icon(
                                                       Icons.add_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .info,
                                                       size: 15.0,
                                                     ),
                                                     options: FFButtonOptions(
@@ -2123,6 +2119,10 @@ class _AdminPageWidgetState extends State<AdminPageWidget>
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
+                                                      iconColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .info,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)

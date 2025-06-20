@@ -317,7 +317,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                           m.storagePath,
                                                           context))) {
                                                 safeSetState(() => _model
-                                                    .isDataUploading = true);
+                                                        .isDataUploading_uploadUserProfileImage =
+                                                    true);
                                                 var selectedUploadedFiles =
                                                     <FFUploadedFile>[];
 
@@ -350,7 +351,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                         selectedMedia,
                                                   );
                                                 } finally {
-                                                  _model.isDataUploading =
+                                                  _model.isDataUploading_uploadUserProfileImage =
                                                       false;
                                                 }
                                                 if (selectedUploadedFiles
@@ -359,10 +360,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                     downloadUrls.length ==
                                                         selectedMedia.length) {
                                                   safeSetState(() {
-                                                    _model.uploadedLocalFile =
+                                                    _model.uploadedLocalFile_uploadUserProfileImage =
                                                         selectedUploadedFiles
                                                             .first;
-                                                    _model.uploadedFileUrl =
+                                                    _model.uploadedFileUrl_uploadUserProfileImage =
                                                         downloadUrls.first;
                                                   });
                                                 } else {
@@ -497,7 +498,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                                 milliseconds:
                                                                     500),
                                                         imageUrl: _model
-                                                            .uploadedFileUrl,
+                                                            .uploadedFileUrl_uploadUserProfileImage,
                                                         width: double.infinity,
                                                         height: double.infinity,
                                                         fit: BoxFit.cover,
@@ -1117,13 +1118,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget>
                                                       currentUserUid,
                                                     ),
                                                   );
-                                                  if (_model.uploadedFileUrl !=
+                                                  if (_model.uploadedFileUrl_uploadUserProfileImage !=
                                                           '') {
                                                     await UsersTable().update(
                                                       data: {
-                                                        'profile_image_url':
-                                                            _model
-                                                                .uploadedFileUrl,
+                                                        'profile_image_url': _model
+                                                            .uploadedFileUrl_uploadUserProfileImage,
                                                       },
                                                       matchingRows: (rows) =>
                                                           rows.eqOrNull(

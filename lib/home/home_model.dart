@@ -1,6 +1,7 @@
-import '/component/my_page_button/my_page_button_widget.dart';
 import '/component/sign_in_button/sign_in_button_widget.dart';
+import '/components/bottom_app_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/my_page/my_page_button/my_page_button_widget.dart';
 import '/index.dart';
 import 'home_widget.dart' show HomeWidget;
 import 'package:flutter/material.dart';
@@ -16,11 +17,14 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Model for BottomAppBar component.
+  late BottomAppBarModel bottomAppBarModel;
 
   @override
   void initState(BuildContext context) {
     myPageButtonModel = createModel(context, () => MyPageButtonModel());
     signInButtonModel = createModel(context, () => SignInButtonModel());
+    bottomAppBarModel = createModel(context, () => BottomAppBarModel());
   }
 
   @override
@@ -29,5 +33,7 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
     signInButtonModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    bottomAppBarModel.dispose();
   }
 }
