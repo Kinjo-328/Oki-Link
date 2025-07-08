@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>OAuth Helper</title>
+    <script>
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const token = params.get("access_token");
+      if (token) {
+        window.location.href = `https://oki-link-development.flutterflow.app/oauth-callback?token=${token}`;
+      }
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
