@@ -10,9 +10,11 @@
       const token = params.get("access_token");
 
       if (token) {
-        // FlutterFlow 側にトークンをルートパラメータとして渡す
+        alert("Token found: " + token); // トークン確認用
+        // トークンをFlutterFlowのルーティングパラメータとして渡す
         window.location.href = `https://oki-link-development.flutterflow.app/oauth-callback/${token}`;
       } else {
+        alert("Token NOT found"); // トークンが見つからない場合の通知
         document.body.innerText = "Access token not found.";
       }
     </script>
