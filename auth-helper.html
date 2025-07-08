@@ -10,11 +10,17 @@
       const token = params.get("access_token");
 
       if (token) {
-        alert("Token found: " + token); // トークン確認用
-        // トークンをFlutterFlowのルーティングパラメータとして渡す
-        window.location.href = `https://oki-link-development.flutterflow.app/oauth-callback/${token}`;
+        // エンコードされたトークンをFlutterFlowのページに渡す
+        const encodedToken = encodeURIComponent(token);
+
+        // 確認用アラート（本番では削除可）
+        alert("Token found: " + token);
+
+        // FlutterFlowのOAuthCallbackページへ遷移
+        window.location.href = `https://oki-link-development.flutterflow.app/oauth-callback/${encodedToken}`;
       } else {
-        alert("Token NOT found"); // トークンが見つからない場合の通知
+        // トークンが取得できなかった場合
+        alert("Token NOT found");
         document.body.innerText = "Access token not found.";
       }
     </script>
